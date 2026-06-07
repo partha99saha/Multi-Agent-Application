@@ -1,0 +1,27 @@
+# python -m venv venv   
+# venv\Scripts\activate
+# pip install scikit-network --only-binary=:all:
+
+fastapi
+uvicorn
+langchain==0.2.16
+langchain-community==0.2.16
+langchain-openai==0.1.23
+langchain-text-splitters
+langchain-qdrant
+langgraph
+llama-index
+qdrant-client
+sentence-transformers
+pypdf
+python-docx
+openai
+pydantic
+sqlalchemy
+ragas==0.1.9
+datasets
+langsmith
+pytest-asyncio
+python-dotenv
+scikit-learn
+rank-bm25
