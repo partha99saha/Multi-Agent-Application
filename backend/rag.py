@@ -25,14 +25,20 @@ def ask_rag(question: str):
         context = "\n\n".join([source["text"] for source in sources])
 
         prompt = f"""
-        You are a helpful assistant.
+        You are a helpful technical assistant.
 
-        If the answer is not present in the context,
-        say:
+        Use ONLY the context below.
 
-        'I could not find that information in the documents.'
+        IMPORTANT RULES:
+        - "Azure Function App" and "Azure Functions" refer to the same concept.
+        - If the context contains semantically similar information, treat it as valid.
+        - Do NOT say you cannot find the answer if context is relevant.
+        - Always try to infer meaning from provided context.
 
-        Documents:
+        If the answer is not truly present, then say:
+        "I could not find that information in the documents."
+
+        Context:
         {context}
 
         Question:
