@@ -25,8 +25,11 @@ MANIFEST
 .safetensors
 *.safetensors
 /*.safetensors
-fine_tuned_embedding_model/
-.model
+
+#Tensor or Models
+.model.*
+/.model
+/.model.*
 
 # Virtual Environments
 venv/
