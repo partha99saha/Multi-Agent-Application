@@ -1,12 +1,19 @@
+import re
+
+PATTERNS = [
+    r"ignore (all|previous|any) instructions",
+    r"forget (all|previous) context",
+    r"disregard (all|above|previous)",
+    r"you are now (a|an)?",
+    r"act as (system|developer|admin|root)",
+    r"switch (to)? (developer|debug|jailbreak) mode",
+    r"reveal (system|hidden|developer) prompt",
+    r"print (your|the) instructions",
+    r"bypass (filters|restrictions|safety)",
+]
+
+
 def detect_prompt_injection(text: str) -> bool:
-    suspicious_patterns = [
-        "ignore previous instructions",
-        "reveal system prompt",
-        "you are now",
-        "act as system",
-        "disregard above",
-    ]
+    text = text.lower()
 
-    text_lower = text.lower()
-
-    return any(p in text_lower for p in suspicious_patterns)
+    return any(re.search(p, text) for p in PATTERNS)

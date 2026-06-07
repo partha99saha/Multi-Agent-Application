@@ -1,13 +1,19 @@
 from tools.tool_registry import register_tool
-from openai import OpenAI
-import os
-
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+import torch
 
 
 @register_tool("image")
 def generate_image(prompt: str):
 
-    response = client.images.generate(model="dall-e-3", prompt=prompt, size="1024x1024")
+    from diffusers import AutoPipelineForText2Image
 
-    return {"image_url": response.data[0].url}
+    pipe = AutoPipelineForText2Image.from_pretrained(
+        "segmind/tiny-sd", torch_dtype=torch.float32
+    )
+
+    image = pipe(prompt).images[0]
+
+    path = f"data/img_{hash(prompt)}.png"
+    image.save(path)
+
+    return {"type": "image", "path": path}

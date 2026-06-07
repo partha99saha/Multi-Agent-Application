@@ -1,6 +1,8 @@
+# Python 3.11.3
 # python -m venv venv   
 # venv\Scripts\activate
 # pip install scikit-network --only-binary=:all:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 # =========================
 # CORE API
@@ -38,6 +40,9 @@ qdrant-client
 sentence-transformers
 torch
 accelerate>=1.1.0
+diffusers 
+transformers 
+safetensors
 
 # =========================
 # RETRIEVAL (HYBRID)
@@ -45,11 +50,16 @@ accelerate>=1.1.0
 rank-bm25
 
 # =========================
-# DATA / DOC PROCESSING
+# DATA PROCESSING
 # =========================
 pypdf
 python-docx
-
+pandas
+openpyxl
+gtts
+click>=8.4.0
+pytesseract
+pillow
 # =========================
 # EVALUATION
 # =========================

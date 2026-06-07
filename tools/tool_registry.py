@@ -3,16 +3,18 @@
 TOOLS = {}
 
 
-def register_tool(name: str):
-    def decorator(func):
+def register_tool(name):
+    def wrapper(func):
         TOOLS[name] = func
         return func
 
-    return decorator
+    return wrapper
 
 
-def get_tool(name: str):
-    return TOOLS.get(name)
+def get_tool(name):
+    if name not in TOOLS:
+        raise Exception(f"Tool not found: {name}")
+    return TOOLS[name]
 
 
 def list_tools():

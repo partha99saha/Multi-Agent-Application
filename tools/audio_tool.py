@@ -1,20 +1,15 @@
 from tools.tool_registry import register_tool
-from openai import OpenAI
-import os
+import pyttsx3
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+engine = pyttsx3.init()
 
 
 @register_tool("tts")
 def text_to_speech(text: str):
 
-    response = client.audio.speech.create(
-        model="gpt-4o-mini-tts", voice="alloy", input=text
-    )
+    path = f"data/audio_{hash(text)}.mp3"
 
-    file_path = "output.mp3"
+    engine.save_to_file(text, path)
+    engine.runAndWait()
 
-    with open(file_path, "wb") as f:
-        f.write(response.content)
-
-    return {"audio_file": file_path}
+    return {"type": "audio", "path": path}

@@ -9,7 +9,7 @@ router = APIRouter()
 # -------------------------
 # CONFIG
 # -------------------------
-UPLOAD_DIR = "data/"
+UPLOAD_DIR = "data/uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 ALLOWED_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".txt"}
