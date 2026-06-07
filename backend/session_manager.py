@@ -1,4 +1,3 @@
-from collections import defaultdict
 import uuid
 import time
 
@@ -38,6 +37,7 @@ def cancel_task(session_id: str, task_id: str):
 
 def is_cancelled(session_id: str, task_id: str) -> bool:
     session = SESSIONS.get(session_id)
+
     if not session:
         return False
 
