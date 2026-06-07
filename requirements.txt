@@ -1,31 +1,68 @@
 # python -m venv venv   
 # venv\Scripts\activate
 # pip install scikit-network --only-binary=:all:
-# pip install torch --index-url https://download.pytorch.org/whl/cu121
+
+# =========================
+# CORE API
+# =========================
 fastapi
 uvicorn
-accelerate>=1.1.0
+
+# =========================
+# OPENAI / LLM
+# =========================
+openai
+langchain-openai==0.1.23
+
+# =========================
+# LANGCHAIN CORE
+# =========================
 langchain==0.2.16
 langchain-community==0.2.16
-langchain-openai==0.1.23
 langchain-text-splitters
 langchain-qdrant
+
+# =========================
+# ORCHESTRATION (OPTIONAL)
+# =========================
 langgraph
 llama-index
+# =========================
+# VECTOR DB
+# =========================
 qdrant-client
-pinecone
-pinecone-client
+
+# =========================
+# EMBEDDINGS / ML
+# =========================
 sentence-transformers
+torch
+accelerate>=1.1.0
+
+# =========================
+# RETRIEVAL (HYBRID)
+# =========================
+rank-bm25
+
+# =========================
+# DATA / DOC PROCESSING
+# =========================
 pypdf
 python-docx
-openai
-pydantic
-sqlalchemy
+
+# =========================
+# EVALUATION
+# =========================
 ragas==0.1.9
 datasets
 evaluate
 langsmith
-pytest-asyncio
-python-dotenv
 scikit-learn
-rank-bm25
+pytest-asyncio
+
+# =========================
+# UTILITIES
+# =========================
+python-dotenv
+pydantic
+sqlalchemy
