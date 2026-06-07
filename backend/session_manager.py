@@ -42,3 +42,18 @@ def is_cancelled(session_id: str, task_id: str) -> bool:
         return False
 
     return task_id in session["cancel_tasks"]
+
+
+def cleanup_sessions(ttl_seconds=3600):
+
+    now = time.time()
+
+    expired = []
+
+    for sid, data in SESSIONS.items():
+
+        if now - data["created_at"] > ttl_seconds:
+            expired.append(sid)
+
+    for sid in expired:
+        del SESSIONS[sid]

@@ -6,7 +6,7 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
-
+from backend.logger import logger
 import uuid
 
 # ---------------------------
@@ -40,7 +40,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# uvicorn backend.main:app --reload   
+# uvicorn backend.main:app --reload
 # ---------------------------
 # RATE LIMITING
 # ---------------------------
@@ -59,7 +59,10 @@ def rate_limit_handler(request, exc):
 # ---------------------------
 @app.on_event("startup")
 def warmup():
-    print("Warming up system...")
+    logger.info("Warming up system...")
+    from backend.session_manager import cleanup_sessions
+
+    cleanup_sessions()
 
     try:
         ask_llm("warmup", session_id="warmup", task_id="warmup")
@@ -73,15 +76,29 @@ def warmup():
     except:
         pass
 
-    print("System Ready")
+    logger.info("System Ready")
 
 
 # ---------------------------
 # BASIC ROUTE
 # ---------------------------
-@app.get("/")
-def home():
-    return {"message": "LLM System Running"}
+@app.get("/health")
+def health():
+
+    try:
+        from vectorstore.client import client
+
+        client.get_collections()
+
+        qdrant_status = "up"
+
+    except Exception:
+        qdrant_status = "down"
+
+    return {
+        "status": "healthy",
+        "qdrant": qdrant_status,
+    }
 
 
 # ---------------------------

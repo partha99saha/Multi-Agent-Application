@@ -1,17 +1,5 @@
-import json
-from datetime import datetime
+import logging
 
-LOG_FILE = "logs.jsonl"
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
-
-def log_interaction(question, answer, plan):
-
-    record = {
-        "timestamp": str(datetime.now()),
-        "question": question,
-        "answer": str(answer),
-        "plan": plan,
-    }
-
-    with open(LOG_FILE, "a") as f:
-        f.write(json.dumps(record) + "\n")
+logger = logging.getLogger("cortexai")
