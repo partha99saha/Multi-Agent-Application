@@ -4,8 +4,11 @@ from vectorstore.bm25_store import bm25_search
 
 def hybrid_search(query, limit=10):
 
-    vector_results = search_documents(query, limit=limit)
-    bm25_results = bm25_search(query, k=limit)
+    from llm.query_rewriter import rewrite_query
+
+    rewritten_query = rewrite_query(query)
+    vector_results = search_documents(rewritten_query, limit=limit)
+    bm25_results = bm25_search(rewritten_query, k=limit)
 
     # merge (simple dedup)
     seen = set()
