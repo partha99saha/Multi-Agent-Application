@@ -1,4 +1,10 @@
-# Python 3.11.3
+# =========================
+# PYTHON VERSION = Python 3.11.3
+# =========================
+
+# =========================
+# SYSTEM INSTALL
+# =========================
 # python -m venv venv   
 # venv\Scripts\activate
 # pip install scikit-network --only-binary=:all:
@@ -10,6 +16,11 @@
 fastapi
 uvicorn
 slowapi
+python-multipart
+python-dotenv
+pydantic
+sqlalchemy
+
 # =========================
 # OPENAI / LLM
 # =========================
@@ -25,10 +36,11 @@ langchain-text-splitters
 langchain-qdrant
 
 # =========================
-# ORCHESTRATION (OPTIONAL)
+# ORCHESTRATION
 # =========================
 langgraph
-llama-index
+langsmith
+
 # =========================
 # VECTOR DB
 # =========================
@@ -40,9 +52,20 @@ qdrant-client
 sentence-transformers
 torch
 accelerate>=1.1.0
-diffusers 
-transformers 
+
+# =========================
+# IMAGE GENERATION
+# =========================
+diffusers
+transformers
 safetensors
+
+# =========================
+# AUDIO GENERATION
+# =========================
+pyttsx3
+gtts
+pillow
 
 # =========================
 # RETRIEVAL (HYBRID)
@@ -50,30 +73,28 @@ safetensors
 rank-bm25
 
 # =========================
-# DATA PROCESSING
+# DOCUMENT PROCESSING
 # =========================
 pypdf
 python-docx
 pandas
 openpyxl
-gtts
 click>=8.4.0
-pytesseract
-pillow
+
 # =========================
 # EVALUATION
 # =========================
 ragas==0.1.9
 datasets
 evaluate
-langsmith
 scikit-learn
 pytest-asyncio
 
 # =========================
 # UTILITIES
 # =========================
-python-dotenv
-pydantic
-sqlalchemy
-python-multipart
+ragas==0.1.9
+datasets
+evaluate
+scikit-learn
+pytest-asyncio

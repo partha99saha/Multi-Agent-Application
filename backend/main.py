@@ -1,31 +1,48 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from backend.llm import ask_llm
-from backend.rag import ask_rag
+from fastapi.responses import JSONResponse
+
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
-from fastapi.responses import JSONResponse
-from tools.tool_registry import get_tool
-from backend.upload import router as upload_router
 
+import uuid
+
+# ---------------------------
+# CORE IMPORTS
+# ---------------------------
+from backend.llm import ask_llm
+from backend.rag import ask_rag
+from backend.upload import router as upload_router
+from tools.tool_registry import get_tool
+
+from backend.session_manager import (
+    create_session,
+    get_session,
+    cancel_task,
+    set_active_task,
+)
+
+# ---------------------------
+# APP INIT
+# ---------------------------
 app = FastAPI(title="Multi-Agent LLM System")
 app.include_router(upload_router)
 
 # ---------------------------
-# CORS (IMPORTANT)
+# CORS
 # ---------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # tighten in prod
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+# uvicorn backend.main:app --reload   
 # ---------------------------
-# RATE LIMITING (DDoS SAFETY)
+# RATE LIMITING
 # ---------------------------
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
@@ -38,17 +55,14 @@ def rate_limit_handler(request, exc):
 
 
 # ---------------------------
-# WARMUP (IMPORTANT)
+# STARTUP WARMUP
 # ---------------------------
 @app.on_event("startup")
 def warmup():
-    """
-    Load models once at startup to avoid cold-start latency.
-    """
-    print("Warming up LLM + Embeddings...")
+    print("Warming up system...")
 
     try:
-        ask_llm("warmup")
+        ask_llm("warmup", session_id="warmup", task_id="warmup")
     except:
         pass
 
@@ -63,43 +77,74 @@ def warmup():
 
 
 # ---------------------------
-# ROUTES
+# BASIC ROUTE
 # ---------------------------
 @app.get("/")
 def home():
     return {"message": "LLM System Running"}
 
 
+# ---------------------------
+# SESSION APIs
+# ---------------------------
+@app.post("/session/create")
+def new_session():
+    return {"session_id": create_session()}
+
+
+@app.get("/session/{session_id}")
+def session_info(session_id: str):
+    return get_session(session_id)
+
+
+@app.post("/cancel/{session_id}/{task_id}")
+def cancel(session_id: str, task_id: str):
+    cancel_task(session_id, task_id)
+    return {"status": "cancel_requested"}
+
+
+# ---------------------------
+# LLM (NO RAG)
+# ---------------------------
 @app.get("/ask")
 @limiter.limit("10/minute")
-def ask(request: Request, question: str):
+def ask(request: Request, question: str, session_id: str = None):
 
-    answer = ask_llm(question)
+    task_id = str(uuid.uuid4())
 
-    return {"question": question, "answer": answer}
+    answer = ask_llm(question, session_id=session_id, task_id=task_id)
+
+    return {"task_id": task_id, "question": question, "answer": answer}
 
 
+# ---------------------------
+# RAG PIPELINE
+# ---------------------------
 @app.get("/rag")
 @limiter.limit("10/minute")
-def rag(request: Request, question: str):
+def rag(request: Request, question: str, session_id: str):
 
-    result = ask_rag(question)
+    task_id = str(uuid.uuid4())
 
-    return result
+    set_active_task(session_id, task_id)
+
+    result = ask_rag(question, session_id=session_id, task_id=task_id)
+
+    return {"task_id": task_id, "question": question, "answer": result["answer"]}
 
 
 # ---------------------------
-# MULTIMODAL ROUTES
+# MULTIMODAL TOOLS
 # ---------------------------
 @app.get("/image")
-def image(prompt: str):
+def image(prompt: str, session_id: str = None):
 
     tool = get_tool("image")
     return tool(prompt)
 
 
 @app.get("/audio")
-def audio(text: str):
+def audio(text: str, session_id: str = None):
 
     tool = get_tool("tts")
     return tool(text)
