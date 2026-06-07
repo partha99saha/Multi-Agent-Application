@@ -6,7 +6,7 @@ from evaluation.rag_evaluator import evaluate_rag
 
 def rag_node(state):
 
-    question = state["question"]
+    question = state.question
 
     # Step 1: retrieve
     docs = search_documents(question, limit=20)

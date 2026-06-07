@@ -1,15 +1,18 @@
-from typing import TypedDict, List, Dict, Any
+# from typing import TypedDict, List, Dict, Any
+from core.schemas import AgentState
+
+GraphState = AgentState
 
 
-class GraphState(TypedDict):
-    question: str
+# class GraphState(TypedDict):
+#     question: str
 
-    route: str
+#     route: str
 
-    documents: List[Dict[str, Any]]
+#     documents: List[Dict[str, Any]]
 
-    context: str
+#     context: str
 
-    draft_answer: str
+#     draft_answer: str
 
-    final_answer: str
+#     final_answer: str

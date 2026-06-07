@@ -9,23 +9,23 @@ llm = ChatOpenAI(model="gpt-4o-mini", api_key=os.getenv("OPENAI_API_KEY"))
 
 def route_question(state):
 
-    question = state["question"]
+    question = state.question
 
     prompt = f"""
-You are a routing classifier in a RAG system.
+        You are a routing classifier in a RAG system.
 
-Decide if the question requires document knowledge.
+        Decide if the question requires document knowledge.
 
-RULES:
-- If the question contains: AWS, Azure, EC2, system design, PDF, document, or technical concepts → rag
-- If it is general knowledge (weather, jokes, greetings) → llm
+        RULES:
+        - If the question contains: AWS, Azure, EC2, system design, PDF, document, or technical concepts → rag
+        - If it is general knowledge (weather, jokes, greetings) → llm
 
-Return ONLY one word:
-rag OR llm
+        Return ONLY one word:
+        rag OR llm
 
-Question:
-{question}
-"""
+        Question:
+        {question}
+        """
 
     result = llm.invoke(prompt)
 

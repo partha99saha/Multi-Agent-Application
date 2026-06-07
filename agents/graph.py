@@ -26,7 +26,7 @@ workflow.add_node("direct", direct_node)
 
 
 def route(state):
-    return state["route"]
+    return state.route
 
 
 workflow.add_conditional_edges(

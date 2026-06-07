@@ -9,7 +9,7 @@ llm = ChatOpenAI(model="gpt-4o-mini", api_key=os.getenv("OPENAI_API_KEY"))
 
 def planner(state):
 
-    question = state["question"].lower()
+    question = state.question.lower()
 
     # HARD RULE FIRST (VERY IMPORTANT)
     keywords = [
@@ -32,17 +32,17 @@ def planner(state):
 
     # fallback to LLM
     prompt = f"""
-You are a routing system.
+        You are a routing system.
 
-Decide:
-- rag = if question needs internal documents or technical knowledge
-- direct = general knowledge
+        Decide:
+        - rag = if question needs internal documents or technical knowledge
+        - direct = general knowledge
 
-Question:
-{question}
+        Question:
+        {question}
 
-Return only: rag or direct
-"""
+        Return only: rag or direct
+        """
 
     result = llm.invoke(prompt)
 

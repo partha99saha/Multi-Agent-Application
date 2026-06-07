@@ -5,8 +5,8 @@ from evaluation.confidence import compute_confidence
 
 def answer_node(state):
 
-    question = state["question"]
-    context = state["context"]
+    question = state.question
+    context = state.context
 
     answer = ask_llm(f"""
         Use context to answer:

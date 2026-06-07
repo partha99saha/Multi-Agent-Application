@@ -1,10 +1,17 @@
 from vectorstore.retriever import search_documents
 from backend.llm import ask_llm
 from utils.timer import timeit
+from backend.security import detect_prompt_injection
 
 
 @timeit("rag_pipeline")
 def ask_rag(question: str):
+    if detect_prompt_injection(question):
+        return {
+            "answer": "I cannot assist with that request.",
+            "sources": [],
+        }
+
     try:
         from vectorstore.reranker import rerank
 

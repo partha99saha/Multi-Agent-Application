@@ -9,23 +9,23 @@ llm = ChatOpenAI(model="gpt-4o-mini", api_key=os.getenv("OPENAI_API_KEY"))
 
 def critic_node(state):
 
-    answer = state["draft_answer"]
-    context = state["context"]
+    answer = state.draft_answer
+    context = state.context
 
     prompt = f"""
-You are a critic agent.
+    You are a critic agent.
 
-Check if the answer is grounded in the context.
+    Check if the answer is grounded in the context.
 
-If correct → return SAME answer
-If wrong → fix it using context
+    If correct → return SAME answer
+    If wrong → fix it using context
 
-Context:
-{context}
+    Context:
+    {context}
 
-Answer:
-{answer}
-"""
+    Answer:
+    {answer}
+    """
 
     result = llm.invoke(prompt)
 
