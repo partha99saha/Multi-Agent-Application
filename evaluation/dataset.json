@@ -1,0 +1,18 @@
+[
+    {
+        "question": "What is Azure Functions?",
+        "expected_keywords": [
+            "serverless",
+            "event-driven",
+            "compute"
+        ]
+    },
+    {
+        "question": "What is EC2?",
+        "expected_keywords": [
+            "compute",
+            "AWS",
+            "virtual machine"
+        ]
+    }
+]
