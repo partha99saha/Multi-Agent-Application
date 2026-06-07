@@ -1,13 +1,17 @@
 from vectorstore.embedding import create_embedding
 from vectorstore.qdrant_store import client, COLLECTION_NAME
+from utils.timer import timeit
 
 
+@timeit("retrieval")
 def search_documents(query_text: str, limit: int = 5):
     query_embedding = create_embedding(query_text)
 
     results = client.query_points(
         collection_name=COLLECTION_NAME, query=query_embedding, limit=limit
     )
+    if not results:
+        print("No retrieval results found")
 
     return results.points
 

@@ -5,3 +5,5 @@ load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 HF_TOKEN = os.getenv("HF_TOKEN")
+QDRANT_HOST = os.getenv("QDRANT_HOST", "localhost")
+COLLECTION_NAME = "documents"

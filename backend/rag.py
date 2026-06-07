@@ -1,7 +1,9 @@
 from vectorstore.retriever import search_documents
 from backend.llm import ask_llm
+from utils.timer import timeit
 
 
+@timeit("rag_pipeline")
 def ask_rag(question: str):
     try:
         from vectorstore.reranker import rerank
@@ -23,6 +25,8 @@ def ask_rag(question: str):
             )
 
         context = "\n\n".join([source["text"] for source in sources])
+        if not context:
+            return {"answer": "No relevant context found", "sources": []}
 
         prompt = f"""
         You are a helpful technical assistant.
