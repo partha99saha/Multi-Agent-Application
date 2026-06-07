@@ -19,6 +19,6 @@ def load_pdf(pdf_path: str):
 
 if __name__ == "__main__":
 
-    content = load_pdf("data/sample.pdf")
+    content = load_pdf("data/system_design.pdf")
 
     print(content[:1000])

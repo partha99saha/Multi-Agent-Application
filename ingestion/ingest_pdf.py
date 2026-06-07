@@ -49,6 +49,6 @@ def ingest_pdf(pdf_path: str):
 
 if __name__ == "__main__":
 
-    ingest_pdf("data/sample.pdf")
+    ingest_pdf("data/system_design.pdf")
     ingest_pdf("data/aws.pdf")
     ingest_pdf("data/azure.pdf")

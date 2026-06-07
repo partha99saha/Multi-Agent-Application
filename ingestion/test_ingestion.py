@@ -1,7 +1,7 @@
 from pdf_loader import load_pdf
 from chunker import create_chunks
 
-text = load_pdf("data/sample.pdf")
+text = load_pdf("data/system_design.pdf")
 
 chunks = create_chunks(text)
 

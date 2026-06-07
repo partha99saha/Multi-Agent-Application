@@ -1,9 +1,10 @@
 # python -m venv venv   
 # venv\Scripts\activate
 # pip install scikit-network --only-binary=:all:
-
+# pip install torch --index-url https://download.pytorch.org/whl/cu121
 fastapi
 uvicorn
+accelerate>=1.1.0
 langchain==0.2.16
 langchain-community==0.2.16
 langchain-openai==0.1.23
@@ -12,6 +13,8 @@ langchain-qdrant
 langgraph
 llama-index
 qdrant-client
+pinecone
+pinecone-client
 sentence-transformers
 pypdf
 python-docx
@@ -20,6 +23,7 @@ pydantic
 sqlalchemy
 ragas==0.1.9
 datasets
+evaluate
 langsmith
 pytest-asyncio
 python-dotenv

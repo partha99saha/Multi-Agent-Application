@@ -8,7 +8,8 @@ def get_model():
 
     if _model is None:
         print("Loading embedding model...")
-        _model = SentenceTransformer("BAAI/bge-small-en-v1.5")
+        # _model = SentenceTransformer("BAAI/bge-small-en-v1.5")
+        _model = SentenceTransformer("fine_tuned_embedding_model")
         print("Model loaded")
 
     return _model
