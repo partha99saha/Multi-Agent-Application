@@ -22,6 +22,9 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.safetensors
+*.safetensors
+/*.safetensors
 
 # Virtual Environments
 venv/
