@@ -3,24 +3,13 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 
 
-def create_chunks(text: str):
+def create_chunks(text: str, metadata: dict = None):
 
     chunks = splitter.split_text(text)
 
-    return chunks
+    results = []
 
+    for i, chunk in enumerate(chunks):
+        results.append({"text": chunk, "chunk_id": i, "metadata": metadata or {}})
 
-if __name__ == "__main__":
-
-    sample_text = """
-    Python is a powerful programming language.
-    It is used in AI, ML, Data Science,
-    Web Development and Automation.
-    """ * 100
-
-    chunks = create_chunks(sample_text)
-
-    print(f"Total Chunks: {len(chunks)}")
-
-    print("\nFirst Chunk:\n")
-    print(chunks[0])
+    return results

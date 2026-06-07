@@ -1,21 +1,17 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-# import tools
-# from backend.router import execute
-# from backend.logger import log_interaction
-# from backend.feedback import save_feedback
 from backend.llm import ask_llm
 from backend.rag import ask_rag
-
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 from fastapi.responses import JSONResponse
-
 from tools.tool_registry import get_tool
+from backend.upload import router as upload_router
 
 app = FastAPI(title="Multi-Agent LLM System")
+app.include_router(upload_router)
 
 # ---------------------------
 # CORS (IMPORTANT)

@@ -66,3 +66,4 @@ pytest-asyncio
 python-dotenv
 pydantic
 sqlalchemy
+python-multipart
