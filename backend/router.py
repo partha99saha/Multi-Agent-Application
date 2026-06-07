@@ -2,6 +2,8 @@ from tools.tool_registry import get_tool
 from backend.planner import create_plan
 from backend.token_optimizer import optimize_context
 from backend.safety import safety_check
+from backend.model_selector import select_model
+from backend.mcp import build_mcp
 
 
 def execute(question: str):
@@ -11,31 +13,29 @@ def execute(question: str):
     context = None
     answer = None
 
-    for step in plan:
+    try:
 
-        # STEP 1: retrieve context
-        if step == "retrieve_context":
-            tool = get_tool("rag")
-            context = tool(question)
+        for step in plan:
 
-        # STEP 2: analyze (LLM refinement step)
-        elif step == "analyze_context":
-            tool = get_tool("llm")
-            answer = tool(str(context))
+            if step == "retrieve_context":
+                tool = get_tool("rag")
+                context = tool(question)
 
-        # STEP 3: generate final answer
-        elif step == "generate_answer":
-            tool = get_tool("llm")
+            elif step == "generate_answer":
+                tool = get_tool("llm")
 
-            optimized_input = optimize_context(question, context)
-            answer = tool(optimized_input)
+                optimized = optimize_context(question, context)
 
-        # STEP 4: direct answer fallback
-        elif step == "direct_answer":
-            tool = get_tool("llm")
-            answer = tool(question)
+                model = select_model(question, context)
 
-    # SAFETY CHECK
-    final = safety_check(answer)
+                mcp_payload = build_mcp(question, context, plan, model)
 
-    return {"plan": plan, "answer": final}
+                answer = tool(optimized)
+
+        final = safety_check(answer)
+
+        return {"plan": plan, "model_used": model, "answer": final, "mcp": mcp_payload}
+
+    except Exception as e:
+
+        return {"error": str(e), "fallback": "System failed safely"}

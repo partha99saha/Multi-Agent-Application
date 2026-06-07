@@ -67,6 +67,7 @@ htmlcov/
 # Logs
 *.log
 logs/
+logs.jsonl
 
 # Dependencies
 node_modules/

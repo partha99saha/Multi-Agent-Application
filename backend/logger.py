@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-# Feedback Logger
+
 LOG_FILE = "logs.jsonl"
 
 
