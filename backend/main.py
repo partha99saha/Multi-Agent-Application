@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from backend.llm import ask_llm
-from backend.rag import ask_rag
+from backend.router import execute
+import tools
 
 app = FastAPI()
 # uvicorn backend.main:app --reload
@@ -15,18 +15,6 @@ def home():
 @app.get("/ask")
 def ask(question: str):
 
-    answer = ask_llm(question)
+    result = execute(question)
 
-    return {"question": question, "answer": answer}
-
-
-@app.get("/rag")
-def rag(question: str):
-
-    result = ask_rag(question)
-
-    return {
-        "question": question,
-        "answer": result["answer"],
-        "sources": result["sources"],
-    }
+    return {"question": question, "result": result}

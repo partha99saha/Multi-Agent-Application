@@ -13,7 +13,7 @@ def timeit(label: str = None):
             end = time.time()
             name = label or func.__name__
 
-            print(f"[TIMER] {name}: {end - start:.4f}s")
+            print(f"TIME TO {name}: {end - start:.4f}s")
 
             return result
 
