@@ -44,7 +44,37 @@ function ChatWindow({
                                 : "assistant-bubble"
                                 }`}
                         >
-                            {msg.content}
+                            {/* {msg.content} */}
+                            <>
+                                {msg.type === "image" ? (
+
+                                    <img
+                                        src={`http://localhost:8000${msg.content}`}
+                                        alt="generated"
+                                        className="chat-image"
+                                    />
+
+                                ) : msg.type === "audio" ? (
+
+                                    <audio controls>
+                                        <source
+                                            src={`http://localhost:8000${msg.content}`}
+                                            type="audio/mpeg"
+                                        />
+                                    </audio>
+
+                                ) : (
+
+                                    msg.content
+
+                                )}
+
+                                {msg.time && (
+                                    <div className="message-time">
+                                        {msg.time}
+                                    </div>
+                                )}
+                            </>
                         </div>
                     </div>
                 )

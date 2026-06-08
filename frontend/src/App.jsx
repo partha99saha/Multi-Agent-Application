@@ -260,14 +260,52 @@ function App() {
         );
       }
 
-      const aiMessage = {
-        role: "assistant",
-        content:
-          response.data.answer ||
-          JSON.stringify(
-            response.data
-          ),
-      };
+      // const aiMessage = {
+      //   role: "assistant",
+      //   content:
+      //     response.data.answer ||
+      //     JSON.stringify(
+      //       response.data
+      //     ),
+      // };
+      let aiMessage;
+
+      const currentTime =
+        new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+      if (mode === "image") {
+
+        aiMessage = {
+          role: "assistant",
+          type: "image",
+          content: response.data.path,
+          time: currentTime,
+        };
+
+      }
+      else if (mode === "audio") {
+
+        aiMessage = {
+          role: "assistant",
+          type: "audio",
+          content: response.data.path,
+          time: currentTime,
+        };
+
+      }
+      else {
+
+        aiMessage = {
+          role: "assistant",
+          type: "text",
+          content: response.data.answer,
+          time: currentTime,
+        };
+
+      }
 
       const updatedMessages = [
         ...tempMessages,
