@@ -6,10 +6,11 @@ import {
 function Sidebar({
     sessions,
     currentSession,
-    setCurrentSession,
+    switchSession,
     createNewSession,
     deleteSession,
     uploadFile,
+    uploadMessage,
 }) {
     return (
         <aside className="sidebar">
@@ -40,15 +41,13 @@ function Sidebar({
                                     : ""
                                     }`}
                                 onClick={() =>
-                                    setCurrentSession(
+                                    switchSession(
                                         session.id
                                     )
                                 }
                             >
-                                <span>
-                                    {
-                                        session.title
-                                    }
+                                <span className="session-title">
+                                    {session.title}
                                 </span>
 
                                 <button
@@ -71,9 +70,9 @@ function Sidebar({
 
             <div>
                 <div className="upload-card">
+
                     <h4>
-                        Upload
-                        Knowledge
+                        Upload Knowledge
                     </h4>
 
                     <input
@@ -82,8 +81,7 @@ function Sidebar({
                         type="file"
                         onChange={(e) =>
                             uploadFile(
-                                e.target
-                                    .files[0]
+                                e.target.files[0]
                             )
                         }
                     />
@@ -99,6 +97,13 @@ function Sidebar({
                     >
                         Upload Files
                     </button>
+
+                    {uploadMessage && (
+                        <div className="upload-status">
+                            {uploadMessage}
+                        </div>
+                    )}
+
                 </div>
 
             </div>

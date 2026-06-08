@@ -47,16 +47,43 @@
 }
 
 .session-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
     padding: 12px;
-    border-radius: 10px;
-
+    border-radius: 12px;
     cursor: pointer;
+    background:
+        rgba(255, 255, 255, 0.05);
+}
 
-    color: white;
+.session-title {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
-    background: rgba(255, 255, 255, 0.05);
+.delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    color: #cbd5e1;
+}
 
-    transition: 0.2s;
+.delete-btn:hover {
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    color: #ef4444;
 }
 
 .session-item:hover {
@@ -92,17 +119,6 @@
     margin-bottom: 12px;
 }
 
-.delete-btn {
-    background: none;
-    border: none;
-    color: #bbb;
-    cursor: pointer;
-}
-
-.delete-btn:hover {
-
-    color: red;
-}
 
 .upload-btn {
     width: 100%;
@@ -133,4 +149,19 @@
     height: 12px;
     border-radius: 50%;
     background: #00ff66;
+}
+
+.upload-status {
+    margin-top: 12px;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    background: rgba(255,
+            255,
+            255,
+            0.08);
+
+    color: #f8fafc;
+    text-align: center;
+    word-break: break-word;
 }

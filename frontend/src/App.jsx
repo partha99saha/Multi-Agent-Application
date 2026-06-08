@@ -15,6 +15,9 @@ function App() {
   const [mode, setMode] = useState("rag");
 
   const [loading, setLoading] = useState(false);
+  const [uploadMessage,
+    setUploadMessage] =
+    useState("");
 
   useEffect(() => {
     const saved = localStorage.getItem(
@@ -23,16 +26,41 @@ function App() {
 
     if (saved) {
       const parsed = JSON.parse(saved);
-
-      setSessions(parsed);
-
       if (parsed.length > 0) {
-        setCurrentSession(parsed[0].id);
+        setSessions(parsed);
+        setCurrentSession(
+          parsed[0].id
+        );
         setMessages(
           parsed[0].messages || []
         );
+        return;
       }
     }
+
+    const defaultSession = {
+      id: Date.now(),
+      title: `chat-${new Date()
+        .toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}`,
+      messages: [],
+    };
+
+    setSessions([defaultSession]);
+
+    setCurrentSession(
+      defaultSession.id
+    );
+
+    localStorage.setItem(
+      "cortex_sessions",
+      JSON.stringify([
+        defaultSession,
+      ])
+    );
+
   }, []);
 
   const createNewSession = () => {
@@ -71,11 +99,64 @@ function App() {
     );
   };
 
+  const switchSession = (
+    sessionId
+  ) => {
+
+    const session =
+      sessions.find(
+        (s) =>
+          s.id === sessionId
+      );
+
+    if (!session) return;
+
+    setCurrentSession(
+      sessionId
+    );
+
+    setMessages(
+      session.messages || []
+    );
+  };
+
   const deleteSession = (id) => {
     const updated =
       sessions.filter(
         (s) => s.id !== id
       );
+
+    if (updated.length === 0) {
+
+      const defaultSession = {
+        id: Date.now(),
+        title: `chat-${new Date()
+          .toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}`,
+        messages: [],
+      };
+
+      setSessions([
+        defaultSession,
+      ]);
+
+      setCurrentSession(
+        defaultSession.id
+      );
+
+      setMessages([]);
+
+      localStorage.setItem(
+        "cortex_sessions",
+        JSON.stringify([
+          defaultSession,
+        ])
+      );
+
+      return;
+    }
 
     setSessions(updated);
 
@@ -84,18 +165,13 @@ function App() {
       JSON.stringify(updated)
     );
 
-    if (updated.length > 0) {
-      setCurrentSession(
-        updated[0].id
-      );
+    setCurrentSession(
+      updated[0].id
+    );
 
-      setMessages(
-        updated[0].messages || []
-      );
-    } else {
-      setCurrentSession(null);
-      setMessages([]);
-    }
+    setMessages(
+      updated[0].messages || []
+    );
   };
 
   const saveMessagesToSession = (
@@ -235,18 +311,21 @@ function App() {
         formData
       );
 
-      alert(
-        "File uploaded successfully"
+      setUploadMessage(
+        "✅ Knowledge Base Updated"
       );
     } catch (err) {
       console.error(err);
     }
   };
 
+
   return (
     <div className="app">
       <Sidebar
         sessions={sessions}
+        uploadMessage={uploadMessage}
+        switchSession={switchSession}
         currentSession={
           currentSession
         }
