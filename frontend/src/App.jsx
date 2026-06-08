@@ -90,6 +90,7 @@ function App() {
     ];
 
     setSessions(updated);
+    setLoading(false);
     setCurrentSession(newSession.id);
     setMessages([]);
 
@@ -112,7 +113,7 @@ function App() {
     setCurrentSession(sessionId);
 
     setMessages(
-      session.messages || []
+      [...(session.messages || [])]
     );
   };
 
@@ -198,13 +199,23 @@ function App() {
   ) => {
     if (!question.trim()) return;
 
+    const sessionIdAtRequest = currentSession;
+
     const userMessage = {
       role: "user",
       content: question,
     };
 
+    const session =
+      sessions.find(
+        (s) => s.id === currentSession
+      );
+
+    const currentMessages =
+      session?.messages || [];
+
     const tempMessages = [
-      ...messages,
+      ...currentMessages,
       userMessage,
     ];
 
@@ -316,7 +327,11 @@ function App() {
         aiMessage,
       ];
 
-      setMessages(updatedMessages);
+      if (
+        currentSession === sessionIdAtRequest
+      ) {
+        setMessages(updatedMessages);
+      }
 
       saveMessagesToSession(
         currentSession,
