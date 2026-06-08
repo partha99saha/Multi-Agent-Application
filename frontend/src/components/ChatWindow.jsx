@@ -15,6 +15,19 @@ function ChatWindow({
 
     return (
         <div className="chat-window">
+            {messages.length === 0 && !loading && (
+                <div className="welcome">
+                    <h1 className="welcome-title">
+                        CortexAI
+                    </h1>
+                    <p className="welcome-subtitle">
+                        Enterprise Knowledge & Agent Platform
+                    </p>
+                    <p className="welcome-desc">
+                        Multi-Agent AI • Hybrid RAG • Multimodal Tools • LangGraph Orchestration
+                    </p>
+                </div>
+            )}
 
             {messages.map(
                 (msg, index) => (

@@ -40,6 +40,41 @@ body {
     flex-direction: column;
 }
 
+.welcome {
+    margin-top: 120px;
+    text-align: center;
+    color: white;
+}
+
+.welcome-title {
+    font-size: 72px;
+    font-weight: 800;
+    background: linear-gradient(90deg,
+            #ff7a18,
+            #ffb347);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+        0 0 20px rgba(255,
+            122,
+            24,
+            .5);
+}
+
+.welcome-subtitle {
+    margin-top: 12px;
+    font-size: 22px;
+    color: white;
+    font-weight: 600;
+}
+
+.welcome-desc {
+    margin-top: 10px;
+    color: #d6d6d6;
+    font-size: 16px;
+}
+
 .topbar {
     width: max-content;
     padding: 8px;
