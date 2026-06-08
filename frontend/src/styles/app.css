@@ -72,14 +72,11 @@ body {
 .thinking {
 
     display: flex;
-
     gap: 6px;
-
+    max-width: 40%;
     padding: 14px 18px;
-
     background:
         rgba(255, 255, 255, .1);
-
     border-radius: 16px;
 }
 
@@ -96,17 +93,39 @@ body {
     animation: bounce 1s infinite;
 }
 
-.thinking span {
+.thinking div {
 
-    width: 8px;
-
-    height: 8px;
+    width: 12px;
+    height: 12px;
 
     border-radius: 50%;
 
     background: white;
 
     animation: bounce 1s infinite;
+}
+
+.thinking div:nth-child(2) {
+
+    animation-delay: .2s;
+}
+
+.thinking div:nth-child(3) {
+
+    animation-delay: .4s;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
 }
 
 .send-btn {

@@ -1,4 +1,7 @@
 import "../styles/sidebar.css";
+import {
+    FaTrash,
+} from "react-icons/fa";
 
 function Sidebar({
     sessions,
@@ -32,9 +35,9 @@ function Sidebar({
                             <div
                                 key={session.id}
                                 className={`session-item ${currentSession ===
-                                        session.id
-                                        ? "active"
-                                        : ""
+                                    session.id
+                                    ? "active"
+                                    : ""
                                     }`}
                                 onClick={() =>
                                     setCurrentSession(
@@ -50,9 +53,7 @@ function Sidebar({
 
                                 <button
                                     className="delete-btn"
-                                    onClick={(
-                                        e
-                                    ) => {
+                                    onClick={(e) => {
                                         e.stopPropagation();
 
                                         deleteSession(
@@ -60,7 +61,7 @@ function Sidebar({
                                         );
                                     }}
                                 >
-                                    ✕
+                                    <FaTrash />
                                 </button>
                             </div>
                         )
