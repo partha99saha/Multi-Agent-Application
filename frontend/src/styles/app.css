@@ -173,6 +173,44 @@ body {
     word-wrap: break-word;
 }
 
+.active-session {
+
+    background:
+        rgba(255,
+            122,
+            24,
+            0.35);
+
+    border:
+        1px solid #ff7a18;
+}
+
+.upload-success {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #4ade80;
+}
+
+.delete-btn {
+
+    background: transparent;
+
+    border: none;
+
+    color: #f87171;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.msg-time {
+    text-align: right;
+    margin-top: 6px;
+    font-size: 10px;
+    opacity: 0.6;
+}
+
 .message-row {
     display: flex;
     margin-bottom: 16px;
@@ -184,6 +222,12 @@ body {
 
 .assistant-row {
     justify-content: flex-start;
+}
+
+.chat-image {
+    max-width: 350px;
+    border-radius: 12px;
+    margin-top: 8px;
 }
 
 .cancel-btn {

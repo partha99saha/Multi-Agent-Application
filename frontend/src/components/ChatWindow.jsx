@@ -1,7 +1,18 @@
+import { useEffect, useRef } from "react";
+
 function ChatWindow({
     messages,
     loading,
 }) {
+    const bottomRef = useRef(null);
+    useEffect(() => {
+
+        bottomRef.current?.scrollIntoView({
+            behavior: "smooth",
+        });
+
+    }, [messages, loading]);
+
     return (
         <div className="chat-window">
 
@@ -10,14 +21,14 @@ function ChatWindow({
                     <div
                         key={index}
                         className={`message-row ${msg.role === "user"
-                                ? "user-row"
-                                : "assistant-row"
+                            ? "user-row"
+                            : "assistant-row"
                             }`}
                     >
                         <div
                             className={`message-bubble ${msg.role === "user"
-                                    ? "user-bubble"
-                                    : "assistant-bubble"
+                                ? "user-bubble"
+                                : "assistant-bubble"
                                 }`}
                         >
                             {msg.content}
@@ -35,7 +46,7 @@ function ChatWindow({
                     </div>
                 </div>
             )}
-
+            <div ref={bottomRef} />
         </div>
     );
 }
