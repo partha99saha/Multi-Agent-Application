@@ -101,17 +101,12 @@ function App() {
   };
 
   const switchSession = (sessionId) => {
-
     setLoading(false);
-
     const session = sessions.find(
       (s) => s.id === sessionId
     );
-
     if (!session) return;
-
     setCurrentSession(sessionId);
-
     setMessages(
       [...(session.messages || [])]
     );
@@ -176,22 +171,24 @@ function App() {
     sessionId,
     msgs
   ) => {
-    const updated = sessions.map(
-      (s) =>
-        s.id === sessionId
-          ? {
-            ...s,
-            messages: msgs,
-          }
-          : s
-    );
+    setSessions((prev) => {
+      const updated = prev.map(
+        (s) =>
+          s.id === sessionId
+            ? {
+              ...s,
+              messages: msgs,
+            }
+            : s
+      );
 
-    setSessions(updated);
+      localStorage.setItem(
+        "cortex_sessions",
+        JSON.stringify(updated)
+      );
 
-    localStorage.setItem(
-      "cortex_sessions",
-      JSON.stringify(updated)
-    );
+      return updated;
+    });
   };
 
   const sendMessage = async (
@@ -334,7 +331,7 @@ function App() {
       }
 
       saveMessagesToSession(
-        currentSession,
+        sessionIdAtRequest,
         updatedMessages
       );
 
@@ -396,24 +393,24 @@ function App() {
         currentSession={
           currentSession
         }
-        setCurrentSession={(
-          id
-        ) => {
-          setCurrentSession(id);
+        // setCurrentSession={(
+        //   id
+        // ) => {
+        //   setCurrentSession(id);
 
-          const session =
-            sessions.find(
-              (s) =>
-                s.id === id
-            );
+        //   const session =
+        //     sessions.find(
+        //       (s) =>
+        //         s.id === id
+        //     );
 
-          if (session) {
-            setMessages(
-              session.messages ||
-              []
-            );
-          }
-        }}
+        //   if (session) {
+        //     setMessages(
+        //       session.messages ||
+        //       []
+        //     );
+        //   }
+        // }}
         createNewSession={
           createNewSession
         }
