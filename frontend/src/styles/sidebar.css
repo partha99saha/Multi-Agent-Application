@@ -92,6 +92,22 @@
     margin-bottom: 12px;
 }
 
+.delete-btn {
+    
+    background: none;
+
+    border: none;
+
+    color: #bbb;
+
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+
+    color: red;
+}
+
 .upload-btn {
     width: 100%;
 

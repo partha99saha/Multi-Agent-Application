@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import Sidebar from "./components/Sidebar";
+import TopBar from "./components/TopBar";
 import ChatWindow from "./components/ChatWindow";
 import ChatInput from "./components/ChatInput";
-import TopBar from "./components/TopBar";
-
 import "./styles/app.css";
 
 function App() {
@@ -19,7 +17,9 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("cortex_sessions");
+    const saved = localStorage.getItem(
+      "cortex_sessions"
+    );
 
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -28,25 +28,27 @@ function App() {
 
       if (parsed.length > 0) {
         setCurrentSession(parsed[0].id);
-        setMessages(parsed[0].messages || []);
+        setMessages(
+          parsed[0].messages || []
+        );
       }
     }
   }, []);
 
   const createNewSession = () => {
-
     if (sessions.length >= 2) {
-      alert("Maximum 2 sessions allowed");
+      alert(
+        "Maximum 2 sessions allowed"
+      );
       return;
     }
 
     const now = new Date();
 
-    const title =
-      now.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
+    const title = `chat-${new Date()
+      .toISOString()
+      .slice(11, 19)
+      .replaceAll(":", "-")}`;
 
     const newSession = {
       id: Date.now(),
@@ -54,7 +56,10 @@ function App() {
       messages: [],
     };
 
-    const updated = [newSession, ...sessions];
+    const updated = [
+      newSession,
+      ...sessions,
+    ];
 
     setSessions(updated);
     setCurrentSession(newSession.id);
@@ -66,17 +71,45 @@ function App() {
     );
   };
 
-  const updateSessionMessages = (
+  const deleteSession = (id) => {
+    const updated =
+      sessions.filter(
+        (s) => s.id !== id
+      );
+
+    setSessions(updated);
+
+    localStorage.setItem(
+      "cortex_sessions",
+      JSON.stringify(updated)
+    );
+
+    if (updated.length > 0) {
+      setCurrentSession(
+        updated[0].id
+      );
+
+      setMessages(
+        updated[0].messages || []
+      );
+    } else {
+      setCurrentSession(null);
+      setMessages([]);
+    }
+  };
+
+  const saveMessagesToSession = (
     sessionId,
-    newMessages
+    msgs
   ) => {
-    const updated = sessions.map((s) =>
-      s.id === sessionId
-        ? {
-          ...s,
-          messages: newMessages,
-        }
-        : s
+    const updated = sessions.map(
+      (s) =>
+        s.id === sessionId
+          ? {
+            ...s,
+            messages: msgs,
+          }
+          : s
     );
 
     setSessions(updated);
@@ -87,7 +120,9 @@ function App() {
     );
   };
 
-  const sendMessage = async (question) => {
+  const sendMessage = async (
+    question
+  ) => {
     if (!question.trim()) return;
 
     const userMessage = {
@@ -95,12 +130,12 @@ function App() {
       content: question,
     };
 
-    const newMessages = [
+    const tempMessages = [
       ...messages,
       userMessage,
     ];
 
-    setMessages(newMessages);
+    setMessages(tempMessages);
 
     setLoading(true);
 
@@ -113,29 +148,38 @@ function App() {
           {
             params: {
               question,
-              session_id: "ui-session",
+              session_id:
+                "frontend-session",
             },
           }
         );
-      } else if (mode === "llm") {
+      } else if (
+        mode === "llm"
+      ) {
         response = await axios.get(
           "http://localhost:8000/ask",
           {
             params: { question },
           }
         );
-      } else if (mode === "image") {
+      } else if (
+        mode === "image"
+      ) {
         response = await axios.get(
           "http://localhost:8000/image",
           {
-            params: { prompt: question },
+            params: {
+              prompt: question,
+            },
           }
         );
       } else {
         response = await axios.get(
           "http://localhost:8000/audio",
           {
-            params: { text: question },
+            params: {
+              text: question,
+            },
           }
         );
       }
@@ -144,33 +188,46 @@ function App() {
         role: "assistant",
         content:
           response.data.answer ||
-          JSON.stringify(response.data),
+          JSON.stringify(
+            response.data
+          ),
       };
 
       const updatedMessages = [
-        ...newMessages,
+        ...tempMessages,
         aiMessage,
       ];
 
       setMessages(updatedMessages);
 
-      updateSessionMessages(
+      saveMessagesToSession(
         currentSession,
         updatedMessages
       );
-    } catch (error) {
-      console.error(error);
+
+      await new Promise(
+        (resolve) =>
+          setTimeout(resolve, 300)
+      );
+    } catch (err) {
+      console.error(err);
     }
 
     setLoading(false);
   };
 
-  const uploadFile = async (file) => {
+  const uploadFile = async (
+    file
+  ) => {
     if (!file) return;
 
-    const formData = new FormData();
+    const formData =
+      new FormData();
 
-    formData.append("file", file);
+    formData.append(
+      "file",
+      file
+    );
 
     try {
       await axios.post(
@@ -178,10 +235,11 @@ function App() {
         formData
       );
 
-      alert("Upload successful");
-    } catch (error) {
-      console.error(error);
-      alert("Upload failed");
+      alert(
+        "File uploaded successfully"
+      );
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -189,21 +247,36 @@ function App() {
     <div className="app">
       <Sidebar
         sessions={sessions}
-        currentSession={currentSession}
-        setCurrentSession={(id) => {
+        currentSession={
+          currentSession
+        }
+        setCurrentSession={(
+          id
+        ) => {
           setCurrentSession(id);
+
           const session =
             sessions.find(
-              (s) => s.id === id
+              (s) =>
+                s.id === id
             );
+
           if (session) {
             setMessages(
-              session.messages || []
+              session.messages ||
+              []
             );
           }
         }}
-        createNewSession={createNewSession}
-        uploadFile={uploadFile}
+        createNewSession={
+          createNewSession
+        }
+        deleteSession={
+          deleteSession
+        }
+        uploadFile={
+          uploadFile
+        }
       />
 
       <div className="main-content">
@@ -214,11 +287,15 @@ function App() {
 
         <ChatWindow
           messages={messages}
+          loading={loading}
         />
 
         <ChatInput
           onSend={sendMessage}
           loading={loading}
+          onCancel={() => {
+            setLoading(false);
+          }}
         />
       </div>
     </div>

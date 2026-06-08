@@ -5,7 +5,9 @@ function TopBar({ mode, setMode }) {
 
             <button
                 className={
-                    mode === "rag" ? "active" : ""
+                    mode === "rag"
+                        ? "topbar-btn active"
+                        : "topbar-btn"
                 }
                 onClick={() => setMode("rag")}
             >
@@ -14,7 +16,9 @@ function TopBar({ mode, setMode }) {
 
             <button
                 className={
-                    mode === "llm" ? "active" : ""
+                    mode === "llm"
+                        ? "topbar-btn active"
+                        : "topbar-btn"
                 }
                 onClick={() => setMode("llm")}
             >
@@ -23,7 +27,9 @@ function TopBar({ mode, setMode }) {
 
             <button
                 className={
-                    mode === "image" ? "active" : ""
+                    mode === "image"
+                        ? "topbar-btn active"
+                        : "topbar-btn"
                 }
                 onClick={() => setMode("image")}
             >
@@ -32,7 +38,9 @@ function TopBar({ mode, setMode }) {
 
             <button
                 className={
-                    mode === "audio" ? "active" : ""
+                    mode === "audio"
+                        ? "topbar-btn active"
+                        : "topbar-btn"
                 }
                 onClick={() => setMode("audio")}
             >

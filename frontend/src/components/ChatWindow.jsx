@@ -1,40 +1,39 @@
 function ChatWindow({
     messages,
+    loading,
 }) {
-
     return (
         <div className="chat-window">
 
-            {messages.length === 0 ? (
-
-                <div className="welcome">
-
-                    <h1>CortexAI</h1>
-
-                    <p>
-                        Enterprise Knowledge &
-                        Agent Platform
-                    </p>
-
-                </div>
-
-            ) : (
-
-                messages.map((msg, index) => (
-
+            {messages.map(
+                (msg, index) => (
                     <div
                         key={index}
-                        className={
-                            msg.role === "user"
-                                ? "user-message"
-                                : "ai-message"
-                        }
+                        className={`message-row ${msg.role === "user"
+                                ? "user-row"
+                                : "assistant-row"
+                            }`}
                     >
-                        {msg.content}
+                        <div
+                            className={`message-bubble ${msg.role === "user"
+                                    ? "user-bubble"
+                                    : "assistant-bubble"
+                                }`}
+                        >
+                            {msg.content}
+                        </div>
                     </div>
+                )
+            )}
 
-                ))
-
+            {loading && (
+                <div className="assistant-row">
+                    <div className="thinking">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
             )}
 
         </div>
