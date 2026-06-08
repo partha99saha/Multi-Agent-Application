@@ -2,7 +2,7 @@ function TopBar({ mode, setMode }) {
 
     return (
         <div className="topbar">
-
+            <span className="topbar-title">AI Playground </span> 
             <button
                 className={
                     mode === "rag"
@@ -25,7 +25,7 @@ function TopBar({ mode, setMode }) {
                 LLM
             </button>
 
-            <button
+            {/* <button
                 className={
                     mode === "image"
                         ? "topbar-btn active"
@@ -45,7 +45,7 @@ function TopBar({ mode, setMode }) {
                 onClick={() => setMode("audio")}
             >
                 AUDIO
-            </button>
+            </button> */}
 
         </div>
     );

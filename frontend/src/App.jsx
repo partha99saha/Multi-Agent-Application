@@ -243,26 +243,43 @@ function App() {
             params: { question },
           }
         );
-      } else if (
-        mode === "image"
-      ) {
-        response = await axios.get(
-          "http://localhost:8000/image",
-          {
-            params: {
-              prompt: question,
-            },
-          }
-        );
-      } else {
-        response = await axios.get(
-          "http://localhost:8000/audio",
-          {
-            params: {
-              text: question,
-            },
-          }
-        );
+        //   } else if (
+        //   mode === "image"
+        // ) {
+        //   response = await axios.get(
+        //     "http://localhost:8000/image",
+        //     {
+        //       params: {
+        //         prompt: question,
+        //       },
+        //     }
+        //   );
+        // } else {
+        //   response = await axios.get(
+        //     "http://localhost:8000/audio",
+        //     {
+        //       params: {
+        //         text: question,
+        //       },
+        //     }
+        //   );
+      } if (mode === "image") {
+        aiMessage = {
+          role: "assistant",
+          type: "image",
+          content: response.data.path,
+          time: currentTime,
+          duration,
+        };
+      }
+      else if (mode === "audio") {
+        aiMessage = {
+          role: "assistant",
+          type: "audio",
+          content: response.data.path,
+          time: currentTime,
+          duration,
+        };
       }
 
       const duration =

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-
+from fastapi.staticfiles import StaticFiles
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
@@ -29,6 +29,11 @@ from backend.session_manager import (
 # ---------------------------
 app = FastAPI(title="Multi-Agent LLM System")
 app.include_router(upload_router)
+app.mount(
+    "/data",
+    StaticFiles(directory="data"),
+    name="data",
+)
 
 # ---------------------------
 # CORS

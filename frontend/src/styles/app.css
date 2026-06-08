@@ -374,15 +374,18 @@ body {
 }
 
 .chat-image {
-    max-width: 350px;
-    width: 100%;
-    border-radius: 16px;
+    max-width: 500px;
+    border-radius: 12px;
     display: block;
 }
 
-audio {
-    width: 320px;
-    max-width: 100%;
+.topbar-title {
+    padding: 5px;
+    color: white;
+}
+
+.chat-audio {
+    max-width: 350px;
 }
 
 .message-time {

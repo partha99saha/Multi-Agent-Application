@@ -47,26 +47,20 @@ function ChatWindow({
                             {/* {msg.content} */}
                             <>
                                 {msg.type === "image" ? (
-
                                     <img
-                                        src={`http://localhost:8000${msg.content}`}
-                                        alt="generated"
+                                        src={`http://localhost:8000/${msg.content}`}
                                         className="chat-image"
+                                        alt="generated"
                                     />
-
                                 ) : msg.type === "audio" ? (
-
-                                    <audio controls>
+                                    <audio controls className="chat-audio">
                                         <source
-                                            src={`http://localhost:8000${msg.content}`}
+                                            src={`http://localhost:8000/${msg.content}`}
                                             type="audio/mpeg"
                                         />
                                     </audio>
-
                                 ) : (
-
-                                    msg.content
-
+                                    <div>{msg.content}</div>
                                 )}
 
                                 <div className="message-footer">
