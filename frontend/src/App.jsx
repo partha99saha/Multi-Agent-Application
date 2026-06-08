@@ -292,9 +292,7 @@ function App() {
     setLoading(false);
   };
 
-  const uploadFile = async (
-    file
-  ) => {
+  const uploadFile = async (file) => {
     if (!file) return;
 
     const formData =
@@ -306,15 +304,27 @@ function App() {
     );
 
     try {
-      await axios.post(
-        "http://localhost:8000/upload",
-        formData
-      );
 
       setUploadMessage(
-        "✅ Knowledge Base Updated"
+        "📄 Reading file..."
       );
+
+      const response =
+        await axios.post(
+          "http://localhost:8000/upload",
+          formData
+        );
+
+      setUploadMessage(
+        "✅ Knowledge uploaded successfully"
+      );
+
     } catch (err) {
+
+      setUploadMessage(
+        "❌ Upload failed"
+      );
+
       console.error(err);
     }
   };
