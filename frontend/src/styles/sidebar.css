@@ -1,0 +1,124 @@
+.sidebar {
+    width: 300px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(20px);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo {
+    color: white;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.new-chat-btn {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+
+    padding: 12px;
+
+    background: #ff7a18;
+    color: white;
+    cursor: pointer;
+
+    margin-bottom: 20px;
+}
+
+.sessions-container h3 {
+    color: white;
+    margin-bottom: 12px;
+}
+
+.sessions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.session-item {
+    padding: 12px;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    color: white;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    transition: 0.2s;
+}
+
+.session-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.session-item.active {
+    background: rgba(255, 122, 24, 0.4);
+}
+
+.sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upload-card,
+.health-card {
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    backdrop-filter: blur(16px);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.upload-card h4,
+.health-card h4 {
+    color: white;
+    margin-bottom: 12px;
+}
+
+.upload-btn {
+    width: 100%;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ff7a18;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.health-item {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.green-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00ff66;
+}

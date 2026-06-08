@@ -1,30 +1,47 @@
-body {
+* {
     margin: 0;
-    font-family: Arial;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, sans-serif;
 }
 
 .app {
     display: flex;
     height: 100vh;
+}
 
-    background:
-        linear-gradient(135deg,
-            #141e30,
-            #243b55);
+.app {
+    background: linear-gradient(135deg,
+            #1a0b0b 0%,
+            #5b1a00 30%,
+            #b54708 65%,
+            #ff7a18 100%);
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .sidebar {
 
-    width: 260px;
+    width: 280px;
 
-    background: rgba(255,
-            255,
-            255,
-            0.08);
+    padding: 20px;
 
     color: white;
 
-    padding: 20px;
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    backdrop-filter: blur(20px);
+
+    border-right:
+        1px solid rgba(255, 255, 255, 0.1);
 }
 
 .main-content {
@@ -36,15 +53,42 @@ body {
     flex-direction: column;
 }
 
-.header {
+.topbar {
+
+    width: max-content;
+
+    padding: 8px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    backdrop-filter: blur(12px);
+
+    margin: 20px;
+}
+
+.topbar button {
+
+    background: #23324b;
 
     color: white;
 
-    font-size: 24px;
+    border: none;
 
-    padding: 20px;
+    border-radius: 12px;
 
-    font-weight: bold;
+    padding: 12px 20px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.topbar button:hover {
+
+    background: #2563eb;
 }
 
 .chat-window {
@@ -53,37 +97,39 @@ body {
 
     overflow-y: auto;
 
-    padding: 20px;
+    padding: 40px;
 }
 
-.message {
+.welcome {
 
-    max-width: 75%;
+    text-align: center;
 
-    padding: 12px;
+    color: white;
 
-    margin-bottom: 10px;
-
-    border-radius: 12px;
+    margin-top: 80px;
 }
 
-.user {
+.welcome h1 {
 
-    background: #4caf50;
+    font-size: 72px;
 
-    margin-left: auto;
+    font-weight: 700;
 
     color: white;
 }
 
-.assistant {
+.welcome p {
 
-    background: white;
+    color: #cbd5e1;
+
+    font-size: 20px;
 }
 
 .chat-input {
 
     display: flex;
+
+    gap: 12px;
 
     padding: 20px;
 }
@@ -92,26 +138,113 @@ body {
 
     flex: 1;
 
-    padding: 12px;
+    min-height: 40px;
 
-    border-radius: 10px;
+    padding: 16px;
+
+    font-size: 16px;
+
+    border-radius: 14px;
+
+    border: none;
+
+    background: white;
+}
+
+.chat-input input::placeholder {
+    color: #d1d5db;
 }
 
 .chat-input button {
 
-    margin-left: 10px;
+    width: 140px;
 
-    padding: 12px 20px;
-}
+    border: none;
 
-.loader {
+    border-radius: 14px;
+
+    background: #2563eb;
 
     color: white;
+
+    cursor: pointer;
+}
+
+.upload-card {
+    background: rgba(255, 255, 255, .06);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.upload-card button {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    background: #f97316;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
 
     padding: 10px;
 }
 
-.upload-panel {
+.sessions-list {
 
-    padding: 10px 20px;
+    margin-top: 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.session-item {
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+}
+
+.session-item:hover {
+
+    background:
+        rgba(255, 255, 255, 0.12);
+}
+
+.suggestions {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 16px;
+
+    width: 700px;
+
+    margin: 40px auto;
+}
+
+.suggestion-card {
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    color: white;
+
+    cursor: pointer;
 }

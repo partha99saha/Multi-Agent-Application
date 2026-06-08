@@ -1,36 +1,50 @@
 import { useState } from "react";
 
-export default function ChatInput({
+function ChatInput({
     onSend,
+    loading,
 }) {
 
-    const [text, setText] = useState("");
+    const [input, setInput] =
+        useState("");
 
-    const submit = () => {
+    const handleSend = () => {
 
-        if (!text.trim()) return;
+        if (!input.trim()) return;
 
-        onSend(text);
+        onSend(input);
 
-        setText("");
+        setInput("");
+    };
 
+    const handleKeyDown = (e) => {
+
+        if (e.key === "Enter") {
+            handleSend();
+        }
     };
 
     return (
         <div className="chat-input">
 
             <input
-                value={text}
-                onChange={(e) =>
-                    setText(e.target.value)
-                }
+                value={input}
                 placeholder="Ask CortexAI..."
+                onChange={(e) =>
+                    setInput(e.target.value)
+                }
+                onKeyDown={handleKeyDown}
             />
 
-            <button onClick={submit}>
-                Send
+            <button
+                onClick={handleSend}
+                disabled={loading}
+            >
+                {loading ? "..." : "Send"}
             </button>
 
         </div>
     );
 }
+
+export default ChatInput;
