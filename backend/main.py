@@ -157,11 +157,13 @@ def rag(request: Request, question: str, session_id: str):
 def image(prompt: str, session_id: str = None):
 
     tool = get_tool("image")
-    return tool(prompt)
+    response = tool(prompt)
+    return response
 
 
 @app.get("/audio")
 def audio(text: str, session_id: str = None):
 
     tool = get_tool("tts")
-    return tool(text)
+    response = tool(text)
+    return response

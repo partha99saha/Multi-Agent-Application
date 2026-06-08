@@ -69,11 +69,18 @@ function ChatWindow({
 
                                 )}
 
-                                {msg.time && (
-                                    <div className="message-time">
-                                        {msg.time}
-                                    </div>
-                                )}
+                                <div className="message-footer">
+                                    {msg.time && (
+                                        <span>
+                                            {msg.time}
+                                        </span>
+                                    )}
+                                    {msg.duration && (
+                                        <span>
+                                            • {msg.duration}s
+                                        </span>
+                                    )}
+                                </div>
                             </>
                         </div>
                     </div>

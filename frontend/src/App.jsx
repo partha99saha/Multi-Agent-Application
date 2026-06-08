@@ -99,21 +99,17 @@ function App() {
     );
   };
 
-  const switchSession = (
-    sessionId
-  ) => {
+  const switchSession = (sessionId) => {
 
-    const session =
-      sessions.find(
-        (s) =>
-          s.id === sessionId
-      );
+    setLoading(false);
+
+    const session = sessions.find(
+      (s) => s.id === sessionId
+    );
 
     if (!session) return;
 
-    setCurrentSession(
-      sessionId
-    );
+    setCurrentSession(sessionId);
 
     setMessages(
       session.messages || []
@@ -121,6 +117,7 @@ function App() {
   };
 
   const deleteSession = (id) => {
+    setLoading(false);
     const updated =
       sessions.filter(
         (s) => s.id !== id
@@ -216,8 +213,8 @@ function App() {
     setLoading(true);
 
     try {
+      const startTime = Date.now();
       let response;
-
       if (mode === "rag") {
         response = await axios.get(
           "http://localhost:8000/rag",
@@ -260,6 +257,10 @@ function App() {
         );
       }
 
+      const duration =
+        ((Date.now() - startTime) / 1000)
+          .toFixed(1);
+
       // const aiMessage = {
       //   role: "assistant",
       //   content:
@@ -283,6 +284,7 @@ function App() {
           type: "image",
           content: response.data.path,
           time: currentTime,
+          duration
         };
 
       }
@@ -293,6 +295,7 @@ function App() {
           type: "audio",
           content: response.data.path,
           time: currentTime,
+          duration
         };
 
       }
@@ -303,6 +306,7 @@ function App() {
           type: "text",
           content: response.data.answer,
           time: currentTime,
+          duration
         };
 
       }
