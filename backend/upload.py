@@ -13,7 +13,7 @@ UPLOAD_DIR = "data/uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 ALLOWED_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".txt"}
-MAX_FILE_SIZE_MB = 10
+MAX_FILE_SIZE_MB = 50
 
 
 # -------------------------

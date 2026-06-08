@@ -366,36 +366,37 @@ function App() {
   const uploadFile = async (file) => {
     if (!file) return;
 
-    const formData =
-      new FormData();
+    const allowedTypes = [".pdf", ".docx", ".xlsx", ".txt"];
 
-    formData.append(
-      "file",
-      file
-    );
+    const fileName = file.name.toLowerCase();
+    const isValid = allowedTypes.some((ext) => fileName.endsWith(ext));
+
+    if (!isValid) {
+      setUploadMessage("❌ Invalid file type. Only PDF, DOCX, XLSX, TXT allowed.");
+      return;
+    }
+
+    // File size validation (50MB limit)
+    const MAX_SIZE = 50 * 1024 * 1024; // 50MB in bytes
+    if (file.size > MAX_SIZE) {
+      setUploadMessage("❌ File too large. Maximum allowed size is 50MB.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
 
     try {
+      setUploadMessage("📄 Reading file...");
 
-      setUploadMessage(
-        "📄 Reading file..."
+      const response = await axios.post(
+        "http://localhost:8000/upload",
+        formData
       );
 
-      const response =
-        await axios.post(
-          "http://localhost:8000/upload",
-          formData
-        );
-
-      setUploadMessage(
-        "✅ Knowledge uploaded successfully"
-      );
-
+      setUploadMessage("✅ Knowledge uploaded successfully");
     } catch (err) {
-
-      setUploadMessage(
-        "❌ Upload failed"
-      );
-
+      setUploadMessage("❌ Upload failed");
       console.error(err);
     }
   };
