@@ -227,6 +227,44 @@ LangGraph is generally preferred for production agent systems.
 
 ## 18. Memory Systems
 
+### Memory System Architecture
+
+```text
+User
+ ↓
+Conversation
+ ↓
+Memory Manager
+ ├──────────────┐
+ ↓              ↓
+Short-Term   Long-Term
+Memory       Memory
+ ↓              ↓
+Context Builder
+ ↓
+Prompt
+ ↓
+LLM
+```
+
+### Memory Types
+
+#### Short-Term Memory
+
+Stores current conversation.
+
+#### Long-Term Memory
+
+Stores persistent user knowledge.
+
+#### Semantic Memory
+
+Stores facts and preferences.
+
+#### Episodic Memory
+
+Stores previous interactions.
+
 ### Q. Why Do LLM Applications Need Memory?
 
 LLMs are stateless.
@@ -679,6 +717,43 @@ Personal Data
 * Prompt Filtering
 * Rate Limiting
 * Monitoring
+
+### Security Architecture Flow
+
+```text
+User Input
+      ↓
+Authentication
+      ↓
+Authorization
+      ↓
+Rate Limiting
+      ↓
+Prompt Injection Detection
+      ↓
+Input Validation
+      ↓
+LLM / Tools
+      ↓
+Output Filtering
+      ↓
+Response
+```
+
+### Libraries
+
+* FastAPI Security
+* SlowAPI
+* JWT
+* OAuth2
+
+### Risks
+
+* Prompt Injection
+* Data Leakage
+* Jailbreak Attempts
+* Unauthorized Access
+
 
 ---
 

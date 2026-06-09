@@ -43,9 +43,17 @@ A user sends a request through a frontend or API. The request is authenticated, 
 ```text
 User
  ↓
-API
+Frontend
  ↓
-Query Rewriter
+API Gateway
+ ↓
+Authentication
+ ↓
+Rate Limiter
+ ↓
+LangGraph
+ ↓
+Planner
  ↓
 Retriever
  ↓
@@ -53,20 +61,40 @@ BM25 Search
  ↓
 Vector Search
  ↓
-Hybrid Search
+Hybrid Retrieval
  ↓
 Reranker
  ↓
 Context Builder
  ↓
-Prompt Template
- ↓
 LLM
  ↓
 Critic
  ↓
-Final Answer
+Response
 ```
+
+Supporting Components
+
+```text
+Session Management
+Prompt Cache
+Evaluation Layer
+LangSmith
+Fine-Tuned Embeddings
+Tool Calling
+Image Generation
+Audio Generation
+Upload Pipeline
+Security Layer
+```
+
+### Libraries
+
+* LangSmith
+* OpenTelemetry
+* MLflow
+
 
 ### Interview Question
 
@@ -365,27 +393,36 @@ Cost
 
 ```text
 Prompt Management
-        ↓
+       ↓
+Version Control
+       ↓
 Evaluation
-        ↓
+       ↓
 Monitoring
-        ↓
+       ↓
 Tracing
-        ↓
+       ↓
 Deployment
-        ↓
+       ↓
 Production
 ```
 
-Tools:
+### Tools
 
-```text
-LangSmith
-OpenAI Evals
-Ragas
-DeepEval
-MLflow
-```
+* LangSmith
+* Ragas
+* DeepEval
+* OpenAI Evals
+* MLflow
+
+### Responsibilities
+
+* Evaluation
+* Monitoring
+* Versioning
+* Deployment
+* Observability
+
 
 ### Interview Question
 

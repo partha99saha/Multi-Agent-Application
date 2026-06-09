@@ -114,6 +114,48 @@ Paper:
 Attention Is All You Need (2017)
 ```
 
+### Transformer Architecture Flow
+
+```text
+Input Text
+     ↓
+Tokenizer
+     ↓
+Token IDs
+     ↓
+Token Embeddings
+     ↓
+Positional Encoding
+     ↓
+Multi-Head Self Attention
+     ↓
+Feed Forward Network
+     ↓
+Transformer Layers
+     ↓
+Decoder Head
+     ↓
+Next Token Prediction
+     ↓
+Generated Response
+```
+
+### Libraries
+
+* Transformers
+* PyTorch
+* TensorFlow
+* Accelerate
+
+### Key Concepts
+
+* Self Attention
+* Multi-Head Attention
+* Positional Encoding
+* Decoder Architecture
+* Token Prediction
+
+
 ---
 
 ### Q. What is Self-Attention?
@@ -347,6 +389,38 @@ Includes:
 * Memory
 * Context compression
 
+### Context Engineering Flow
+
+```text
+User Query
+      ↓
+Query Rewriter
+      ↓
+Hybrid Retrieval
+      ↓
+Reranking
+      ↓
+Context Builder
+      ↓
+Prompt Template
+      ↓
+LLM
+      ↓
+Response
+```
+
+### Goal
+
+Deliver the highest quality context to the model.
+
+### Components
+
+* Query Rewriting
+* Retrieval
+* Context Compression
+* Prompt Construction
+
+
 ---
 
 ### Q. What is Context Window?
@@ -419,8 +493,72 @@ AWS S3
 
 Semantically similar text has similar vectors.
 
+### Embedding Pipeline Flow
+
+```text
+Document
+     ↓
+Chunking
+     ↓
+Embedding Model
+     ↓
+Dense Vectors
+     ↓
+Vector Database
+     ↓
+Semantic Retrieval
+```
+
+### Libraries
+
+* SentenceTransformers
+* BGE
+* E5
+* OpenAI Embeddings
+
+### Vector Databases
+
+* Qdrant
+* Pinecone
+* Weaviate
+* Milvus
+
+
 ---
 
+### Vector Database Architecture
+
+```text
+Documents
+     ↓
+Chunking
+     ↓
+Embedding Generation
+     ↓
+Vector Creation
+     ↓
+Qdrant
+     ↓
+Vector Similarity Search
+     ↓
+Retrieved Chunks
+```
+
+### Similarity Methods
+
+* Cosine Similarity
+* Dot Product
+* Euclidean Distance
+
+### Databases
+
+* Qdrant
+* Pinecone
+* Weaviate
+* Milvus
+
+
+---
 ### Q. Why are Embeddings Important?
 
 Used for:
@@ -615,14 +753,30 @@ Second-stage ranking.
 Process:
 
 ```text
+User Query
+     ↓
 Retriever
-↓
-Top 20
-↓
-Reranker
-↓
-Top 5
+     ↓
+Top 50 Documents
+     ↓
+Cross Encoder Reranker
+     ↓
+Top 5 Documents
+     ↓
+Context Builder
+     ↓
+LLM
 ```
+
+### Libraries
+
+* BAAI BGE Reranker
+* Cohere Rerank
+* SentenceTransformers CrossEncoder
+
+### Purpose
+
+Improve retrieval precision before sending context to the LLM.
 
 ---
 
@@ -748,6 +902,42 @@ Methods:
 * Verification layers
 * Citations
 * Evaluations
+
+### Hallucination Reduction Flow
+
+```text
+User Question
+      ↓
+Retriever
+      ↓
+Relevant Context
+      ↓
+Prompt Builder
+      ↓
+LLM
+      ↓
+Critic Agent
+      ↓
+Faithfulness Validation
+      ↓
+Final Answer
+```
+
+### Techniques
+
+* RAG
+* Grounded Generation
+* Critic Agent
+* Evaluation Layer
+* Confidence Scoring
+
+### Metrics
+
+* Faithfulness
+* Answer Relevancy
+* Groundedness
+
+
 
 ---
 
