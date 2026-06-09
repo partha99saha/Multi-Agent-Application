@@ -522,6 +522,7 @@ Critic
 ```
 
 ---
+### 
 
 ### Q. What is a Conditional Edge?
 
@@ -1064,26 +1065,3 @@ Monitoring Layer
 ```
 
 ---
-
-### Q. What Topics Are Most Frequently Asked for Senior LLM Engineer Interviews?
-
-1. Transformers
-2. Embeddings
-3. RAG
-4. Hybrid Search
-5. Reranking
-6. Agent Systems
-7. LangGraph
-8. Fine-Tuning
-9. Evaluation
-10. Hallucinations
-11. Security
-12. MCP
-13. Tool Calling
-14. Vector Databases
-15. LLM System Design
-16. LLMOps
-17. LangSmith
-18. Context Engineering
-19. Memory Systems
-20. Production Architecture
