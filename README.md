@@ -3,9 +3,6 @@ CortexAI — Enterprise Knowledge & Agent Platform
 
 Enterprise Knowledge & Agent Platform built using FastAPI, LangGraph, Hybrid RAG, Fine-Tuned Embeddings, Multimodal Tools, LangSmith Observability, and Multi-Agent Orchestration.
 
-# Author
-Partha Saha
-
 ---
 
 # Overview
@@ -83,14 +80,11 @@ Create a `.env` file:
 
 ```env
 OPENAI_API_KEY=
-
 HF_TOKEN=
-
 LANGSMITH_API_KEY=
 LANGSMITH_TRACING=true
 LANGSMITH_ENDPOINT=https://api.smith.langchain.com
 LANGSMITH_PROJECT=CortexAI
-
 LLM_MODEL=gpt-4o-mini
 ```
 
